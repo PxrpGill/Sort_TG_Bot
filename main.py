@@ -5,9 +5,10 @@ import algorithm
 import time
 
 
-token_bot = '6279282499:AAGQDzH2ICdUp3lRBaxGb5kUgk6Pu33qjNU'
+token_bot = 'Ваш-ключ'
 bot = telebot.TeleBot(token=token_bot)
 
+# Начальное сообщение при запуске.
 MESSAGE_START = (
     'Привет! Я бот,'
     ' который производит сортировку следующими методами:\n\n'
@@ -16,6 +17,7 @@ MESSAGE_START = (
     'Каким методом будем сортировать?'
 )
 
+# Сообщение выбора сортировок.
 MESSAGE_CHOICE_SIZE = (
     'Хорошо! Выбери размер массива:\n\n'
     '1000, 10000, 100000, 150000'
@@ -50,12 +52,14 @@ markup_2.row(btn_size_150000)
 
 @bot.message_handler(commands=['start'])
 def main(message):
+    """Стартовая функция."""
     bot.send_message(message.chat.id, MESSAGE_START, reply_markup=markup_1)
     bot.register_next_step_handler(message, on_click)
 
 
 @bot.message_handler(func=lambda message: True)
 def on_click(message):
+    """Отслеживание нажатия."""
     bot.send_message(message.chat.id, MESSAGE_CHOICE_SIZE, reply_markup=markup_2)
     if message.text == 'Обменом':
         bot.register_next_step_handler(message, on_click_sizer_bubble_sort)
@@ -76,6 +80,7 @@ def on_click(message):
 
 
 def on_click_sizer_bubble_sort(message):
+    """Функция обработки BubbleSort."""
     bot.send_message(message.chat.id, 'Начинаю сортировать!')
 
     size = int(message.text)
@@ -102,6 +107,7 @@ def on_click_sizer_bubble_sort(message):
 
 
 def on_click_sizer_insert_sort(message):
+    """Функция обработки InsertSort."""
     bot.send_message(message.chat.id, 'Начинаю сортировать!')
 
     size = int(message.text)
@@ -127,6 +133,7 @@ def on_click_sizer_insert_sort(message):
 
 
 def on_click_sizer_selection_sort(message):
+    """Функция обработки SelectionSort."""
     bot.send_message(message.chat.id, 'Начинаю сортировать!')
 
     size = int(message.text)
@@ -152,6 +159,7 @@ def on_click_sizer_selection_sort(message):
 
 
 def on_click_sizer_quick_sort(message):
+    """Функция обработки QuickSort."""
     bot.send_message(message.chat.id, 'Начинаю сортировать!')
 
     size = int(message.text)
@@ -177,6 +185,7 @@ def on_click_sizer_quick_sort(message):
 
 
 def on_click_sizer_heap_sort(message):
+    """Функция обработки HeapSort."""
     bot.send_message(message.chat.id, 'Начинаю сортировать!')
 
     size = int(message.text)
@@ -202,6 +211,7 @@ def on_click_sizer_heap_sort(message):
 
 
 def on_click_sizer_shell_sort(message):
+    """Функция обработки ShellSort."""
     bot.send_message(message.chat.id, 'Начинаю сортировать!')
 
     size = int(message.text)
@@ -227,6 +237,7 @@ def on_click_sizer_shell_sort(message):
 
 
 def on_click_sizer_merge_sort(message):
+    """Функция обработки MergeSort."""
     bot.send_message(message.chat.id, 'Начинаю сортировать!')
 
     size = int(message.text)
