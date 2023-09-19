@@ -32,12 +32,7 @@ class MyObject:
 
     def get_unsorted_massive(self) -> list[int]:
         """Создание массива."""
-        unsorted_massive: list[int] = []
-
-        for i in range(self.size):
-            tmp_digit: int = random.randint(-99999, 99999)
-            unsorted_massive.append(tmp_digit)
-
+        unsorted_massive: list[int] = [random.randint(-99999, 99999) for i in range(self.size)]
         return unsorted_massive
 
     def do_sort(self):

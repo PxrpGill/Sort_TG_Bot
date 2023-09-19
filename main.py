@@ -1,11 +1,12 @@
+import time
 import telebot
 from telebot import types
 
 import algorithm
-import time
+import binarysort
 
 
-token_bot = 'Ваш-ключ'
+token_bot = '6279282499:AAGQDzH2ICdUp3lRBaxGb5kUgk6Pu33qjNU'
 bot = telebot.TeleBot(token=token_bot)
 
 # Начальное сообщение при запуске.
@@ -75,12 +76,15 @@ def on_click(message):
         bot.register_next_step_handler(message, on_click_sizer_shell_sort)
     elif message.text == 'Слиянием':
         bot.register_next_step_handler(message, on_click_sizer_merge_sort)
+    elif message.text == 'Деревом':
+        bot.register_next_step_handler(message, on_click_sizer_binary_tree_sort)
     else:
         bot.send_message(message.chat.id, 'Такой сортировки не знаю :(', reply_markup=markup_1)
 
 
 def on_click_sizer_bubble_sort(message):
     """Функция обработки BubbleSort."""
+
     bot.send_message(message.chat.id, 'Начинаю сортировать!')
 
     size = int(message.text)
@@ -108,6 +112,7 @@ def on_click_sizer_bubble_sort(message):
 
 def on_click_sizer_insert_sort(message):
     """Функция обработки InsertSort."""
+
     bot.send_message(message.chat.id, 'Начинаю сортировать!')
 
     size = int(message.text)
@@ -134,6 +139,7 @@ def on_click_sizer_insert_sort(message):
 
 def on_click_sizer_selection_sort(message):
     """Функция обработки SelectionSort."""
+
     bot.send_message(message.chat.id, 'Начинаю сортировать!')
 
     size = int(message.text)
@@ -160,6 +166,7 @@ def on_click_sizer_selection_sort(message):
 
 def on_click_sizer_quick_sort(message):
     """Функция обработки QuickSort."""
+
     bot.send_message(message.chat.id, 'Начинаю сортировать!')
 
     size = int(message.text)
@@ -186,6 +193,7 @@ def on_click_sizer_quick_sort(message):
 
 def on_click_sizer_heap_sort(message):
     """Функция обработки HeapSort."""
+
     bot.send_message(message.chat.id, 'Начинаю сортировать!')
 
     size = int(message.text)
@@ -212,6 +220,7 @@ def on_click_sizer_heap_sort(message):
 
 def on_click_sizer_shell_sort(message):
     """Функция обработки ShellSort."""
+
     bot.send_message(message.chat.id, 'Начинаю сортировать!')
 
     size = int(message.text)
@@ -238,6 +247,7 @@ def on_click_sizer_shell_sort(message):
 
 def on_click_sizer_merge_sort(message):
     """Функция обработки MergeSort."""
+
     bot.send_message(message.chat.id, 'Начинаю сортировать!')
 
     size = int(message.text)
@@ -246,6 +256,34 @@ def on_click_sizer_merge_sort(message):
 
     start_time = time.time()
     sorted_massive = my_object.do_sort()
+
+    if start_time > 2:
+        bot.send_message(message.chat.id, 'Ща, погоди, еще сортирую...')
+
+    end_time = time.time()
+    execution_time = end_time - start_time
+
+    info = algorithm.InfoMessage(sorted_massive, size, sort_type, execution_time)
+    info_message = info.get_message()
+
+    print(sorted_massive)
+    print(sort_type)
+
+    bot.send_message(message.chat.id, info_message, reply_markup=markup_1)
+
+
+def on_click_sizer_binary_tree_sort(message):
+    """Функция обработки BinaryTreeSort."""
+
+    bot.send_message(message.chat.id, 'Начинаю сортировать!')
+
+    size = int(message.text)
+    my_object = algorithm.MyObject(size)
+    unsorted_massive = my_object.get_unsorted_massive()
+
+    sort_type = 'BinaryTreeSort'
+    start_time = time.time()
+    sorted_massive = binarysort.binary_sort(unsorted_massive)
 
     if start_time > 2:
         bot.send_message(message.chat.id, 'Ща, погоди, еще сортирую...')
